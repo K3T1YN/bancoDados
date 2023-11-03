@@ -1,5 +1,5 @@
-from flask import Flask, requeset, jsonify
-import mysql
+from flask import Flask, request, jsonify
+import mysql.connector
 
 app = Flask(__name__)
 
@@ -21,4 +21,18 @@ def search():
 
 if __name__=="__main__":
     app.run()
+
+
+@app.route("/searchAutor", methods=["GET"])
+def searchAutor():
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT *FROM autor")
+    objetos =  cursor.fetchall()
+    cursor.close()
+
+    return jsonify(objetos)
+
+if __name__=="__main__":
+    app.run()
+
 
